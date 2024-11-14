@@ -196,11 +196,11 @@ public class BabyWorld {
         System.out.println("enter 4 to see accuracy over time\n");
         System.out.println("enter 5 to restart program");
         boundry();
-        System.out.println("");
+        System.out.println();
         
         String input = this.scanner.nextLine();
 
-        System.out.println("");
+        System.out.println();
         boundry();
 
         switch (input) {
@@ -253,7 +253,7 @@ public class BabyWorld {
             break;
 
             case "5":
-            System.out.println("");
+            System.out.println();
             System.out.println("START");
             BabyWorld world = new BabyWorld();
             world.askInitials();
@@ -277,10 +277,6 @@ public class BabyWorld {
             }
         }
         accuracy = accuracy/curBabbies.size() * 100;
-    }
-
-    public ArrayList<Baby> getCurBabbies() {
-        return curBabbies;
     }
 
     public ArrayList<Location> getCurLocations() {

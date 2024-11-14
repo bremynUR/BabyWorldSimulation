@@ -8,9 +8,9 @@ public class NameGen {
 
     String generateName(Integer size) {
         String name = "";
-        Boolean vowel = true;
+        boolean vowel = true;
         for (int i = 0; i < size; i++) {
-            Integer chance = rand.nextInt(101);
+            int chance = rand.nextInt(101);
             if(vowel) {
                 if (chance > 20) {
                     vowel = false;
@@ -59,40 +59,35 @@ public class NameGen {
         int randInt = rand.nextInt(4);
         ArrayList<String> letters = new ArrayList<>();
         Collections.addAll(letters, "a", "e", "i", "o");
-        String vowel = intToLetter(letters, randInt);
-        return vowel;
+        return intToLetter(letters, randInt);
     }
     
     String generateUncommonVowel() {
         int randInt = rand.nextInt(2);
         ArrayList<String> letters = new ArrayList<>();
         Collections.addAll(letters, "u", "y");
-        String vowel = intToLetter(letters, randInt);
-        return vowel;
+        return intToLetter(letters, randInt);
     }
 
     String generateCommonConsonant() {
         int randInt = rand.nextInt(7);
         ArrayList<String> letters = new ArrayList<>();
         Collections.addAll(letters, "t", "n", "s", "h", "r", "d", "l");
-        String cons = intToLetter(letters, randInt);
-        return cons;
+        return intToLetter(letters, randInt);
     }
 
     String generateUncommonConsonant() {
         int randInt = rand.nextInt(7);
         ArrayList<String> letters = new ArrayList<>();
         Collections.addAll(letters, "c", "w", "m", "f", "g", "p", "b");
-        String cons = intToLetter(letters, randInt);
-        return cons;
+        return intToLetter(letters, randInt);
     }
 
     String generateRareConsonant() {
         int randInt = rand.nextInt(6);
         ArrayList<String> letters = new ArrayList<>();
         Collections.addAll(letters, "v", "k", "x", "j", "q", "z");
-        String cons = intToLetter(letters, randInt);
-        return cons;
+        return intToLetter(letters, randInt);
     }
 
     String intToLetter(ArrayList<String> letters, Integer num) {
