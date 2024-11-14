@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.Random;
 
 public class Baby {
@@ -15,7 +16,7 @@ public class Baby {
     public Baby(String name, BabyWorld world, boolean teacher) {
         feedbackMap = new HashMap<>();
         this.name = name;
-        Integer randInt = rand.nextInt(world.getCurLocations().size());
+        int randInt = rand.nextInt(world.getCurLocations().size());
         location = world.getCurLocations().get(randInt);
         this.teacher = teacher;
         this.babyWorld = world;
@@ -46,10 +47,6 @@ public class Baby {
         return teacher;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
     public void addFeedback(Feedback feedback, Location loc) {
         if (feedbackMap.isEmpty() || !feedbackMap.containsKey(loc)) {
             ArrayList<Feedback> feedbackList = new ArrayList<Feedback>();
@@ -62,18 +59,8 @@ public class Baby {
             feedbackMap.put(loc, feedbackList);
         }
     }
-    
-    public void removeFeedback(Feedback feedback) {
-        if (!feedbackMap.isEmpty() && feedbackMap.containsKey(this.location)) {
-            ArrayList<Feedback> feedbackList;
-            feedbackList = feedbackMap.get(this.location);
-            if (feedbackList.contains(feedback)) {
-                feedbackList.remove(feedback);
-            }
-        }
-    }
 
-    public ArrayList<Feedback> getFeedback(Location location) {
+    public ArrayList<Feedback> getFeedback() {
         if (feedbackMap.isEmpty() || !feedbackMap.containsKey(this.location)) {
             return null;
         } else {
@@ -101,15 +88,13 @@ public class Baby {
 
         Letter curLetter = new Letter("/", 0);
         String guess = "";
-        Integer i = 0;
 
-        while (!(curLetter.getSymbol() == ".")) {
+        while (!(Objects.equals(curLetter.getSymbol(), "."))) {
             guess = guess + curLetter.getSymbol();
             curLetter = generateNextLetter(curLetter, letterMatrix);
-            i++;
         }
 
-        guess = guess.substring(1, guess.length());
+        guess = guess.substring(1);
         this.curGuess = guess;
 
         if (teacher) {
@@ -160,8 +145,8 @@ public class Baby {
         for (Feedback feedback : feedbackList) {
             ArrayList<Letter> feedbackLetters = new ArrayList<>();
             feedbackLetters.add(new Letter("/", 0));
-            for (int i = 0; i < feedback.getRecomendation().length(); i++) {
-                String symbol = feedback.getRecomendation().substring(i, i+1);
+            for (int i = 0; i < feedback.getRecommendation().length(); i++) {
+                String symbol = feedback.getRecommendation().substring(i, i+1);
                 Letter letter = new Letter(symbol, feedback.getWeight());
                 feedbackLetters.add(letter);
             }
@@ -176,7 +161,7 @@ public class Baby {
 
                 for (HashMap.Entry<String, ArrayList<Letter>> entry : letterMatrix.entrySet()) {
 
-                    if (entry.getKey() == letter) {
+                    if (Objects.equals(entry.getKey(), letter)) {
                         secondLetterList = entry.getValue();
                         keyToStoreAt = entry.getKey();
                         break;
@@ -194,22 +179,20 @@ public class Baby {
     }
 
     public void logWeights() {
-        if (teacher) {
-            //do nothing, you know you are right
-        } else {
+        if(!teacher) {
             Feedback feedback;
             for (Baby baby : location.getBabies()) {
                 if (!this.equals(baby)) {
                     double weightAve = 0;
-                    Integer recentFeedback = 0;
-                    for (Feedback f : baby.getFeedback(location)) {
+                    int recentFeedback = 0;
+                    for (Feedback f : baby.getFeedback()) {
                         if (!f.isRecent()) {
                             weightAve += f.getWeight();
                         } else {
                             recentFeedback++;
                         }
                     }
-                    Integer n = baby.getFeedback(location).size() - recentFeedback;
+                    int n = baby.getFeedback().size() - recentFeedback;
                     weightAve = weightAve/n;    // weight = average weight of feedback from giver
                     feedback = new Feedback(baby.getCurGuess(), weightAve, baby.getName());
                     addFeedback(feedback, location);
@@ -218,10 +201,9 @@ public class Baby {
         }
     }
 
-    public Location randomizeLocation() {
-        Integer randInt = rand.nextInt(babyWorld.getCurLocations().size());
+    public void randomizeLocation() {
+        int randInt = rand.nextInt(babyWorld.getCurLocations().size());
         location = babyWorld.getCurLocations().get(randInt);
         location.addBaby(this);
-        return location;
     }
 }

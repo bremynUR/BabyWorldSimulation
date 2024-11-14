@@ -16,24 +16,12 @@ public class Location {
         return object;
     }
 
-    public Integer getID() {
-        return ID;
-    }
-
-    public void setBabies(ArrayList<Baby> babies) {
-        this.babies = babies;
-    }
-
     public ArrayList<Baby> getBabies() {
         return babies;
     }
 
     public void addBaby(Baby baby) {
         babies.add(baby);
-    }
-
-    public void removeBaby(Baby baby) {
-        babies.remove(baby);
     }
 
 }

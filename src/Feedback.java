@@ -1,13 +1,13 @@
 
 public class Feedback {
 
-    String recomendation;
+    String recommendation;
     double weight;
     String source;
     Boolean recent;
 
-    public Feedback(String recomendation, double weight, String source) {
-        this.recomendation = recomendation;
+    public Feedback(String recommendation, double weight, String source) {
+        this.recommendation = recommendation;
         this.weight = weight;
         this.source = source;
         this.recent = true;
@@ -21,18 +21,12 @@ public class Feedback {
         this.recent = false;
     }
 
-    public String getRecomendation() {
-        return recomendation;
+    public String getRecommendation() {
+        return recommendation;
     }
 
-    public void setRecomendation(String recomendation) {
-        this.recomendation = recomendation;
-    }
     public double getWeight() {
         return weight;
-    }
-    public void setWeight(double weight) {
-        this.weight = weight;
     }
 
 }
