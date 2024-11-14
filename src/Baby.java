@@ -111,8 +111,12 @@ public class Baby {
 
         guess = guess.substring(1, guess.length());
         this.curGuess = guess;
-        System.out.println(name + " at " + this.location.getObject() + " says " + guess);
-        
+
+        if (teacher) {
+            this.curGuess = location.getObject();
+        }
+
+        System.out.println(name + " at " + this.location.getObject() + " says " + this.curGuess);
         
     }
 
